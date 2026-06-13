@@ -28,7 +28,8 @@ Decisions:
 - Avoid external dependencies unless the built-in approach becomes significantly harder or less reliable.
 - For the first version, use a fixed built-in global hotkey implementation rather than adding a package for configurable shortcuts.
 - The panel should hide when it loses focus.
-- The prompt and answer should be preserved while the app runs.
+- The panel should start empty every time it opens.
+- Pressing `Esc` should close the panel.
 - When opened, the prompt should be focused so the user can type immediately.
 - The first version should keep the current one-shot prompt plus streamed answer flow.
 - Do not turn the panel into a multi-message chat yet.

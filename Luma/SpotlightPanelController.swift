@@ -4,8 +4,17 @@ import SwiftUI
 
 @MainActor
 final class SpotlightPanelController: NSObject, NSWindowDelegate {
+    private enum Layout {
+        static let width: CGFloat = 620
+        static let collapsedHeight: CGFloat = 82
+        static let expandedHeight: CGFloat = 360
+        static let topOffset: CGFloat = 96
+        static let cornerRadius: CGFloat = 20
+    }
+
     private let viewModel: LumaViewModel
     private var panel: SpotlightPanel?
+    private var escapeMonitor: Any?
     private var cancellables: Set<AnyCancellable> = []
 
     init(viewModel: LumaViewModel) {
@@ -26,15 +35,17 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         let panel = panel ?? makePanel()
         self.panel = panel
 
+        viewModel.reset()
         position(panel)
+        installEscapeMonitor()
         NSApp.activate(ignoringOtherApps: true)
-        panel.orderFrontRegardless()
-        panel.makeKey()
+        panel.makeKeyAndOrderFront(nil)
         viewModel.requestFocus()
     }
 
     func hide() {
         panel?.orderOut(nil)
+        removeEscapeMonitor()
     }
 
     func windowDidResignKey(_ notification: Notification) {
@@ -43,13 +54,15 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
 
     private func makePanel() -> SpotlightPanel {
         let contentView = ContentView(viewModel: viewModel)
-            .background(.regularMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: Layout.cornerRadius, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: Layout.cornerRadius, style: .continuous))
 
         let hostingView = NSHostingView(rootView: contentView)
+        hostingView.wantsLayer = true
+        hostingView.layer?.backgroundColor = NSColor.clear.cgColor
         let panel = SpotlightPanel(
-            contentRect: NSRect(x: 0, y: 0, width: 732, height: 112),
-            styleMask: [.borderless, .nonactivatingPanel],
+            contentRect: NSRect(x: 0, y: 0, width: Layout.width, height: Layout.collapsedHeight),
+            styleMask: [.borderless],
             backing: .buffered,
             defer: false
         )
@@ -62,7 +75,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         panel.level = .floating
         panel.backgroundColor = .clear
         panel.isOpaque = false
-        panel.hasShadow = true
+        panel.hasShadow = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .transient]
 
         return panel
@@ -78,10 +91,30 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
             .store(in: &cancellables)
     }
 
+    private func installEscapeMonitor() {
+        guard escapeMonitor == nil else { return }
+
+        escapeMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard event.keyCode == 53 else {
+                return event
+            }
+
+            self?.hide()
+            return nil
+        }
+    }
+
+    private func removeEscapeMonitor() {
+        guard let escapeMonitor else { return }
+
+        NSEvent.removeMonitor(escapeMonitor)
+        self.escapeMonitor = nil
+    }
+
     private func resizePanelForCurrentContent() {
         guard let panel else { return }
 
-        let targetHeight: CGFloat = viewModel.answer.isEmpty && !viewModel.isLoading ? 112 : 420
+        let targetHeight = viewModel.answer.isEmpty && !viewModel.isLoading ? Layout.collapsedHeight : Layout.expandedHeight
         var frame = panel.frame
         let heightDelta = targetHeight - frame.height
         frame.size.height = targetHeight
@@ -98,7 +131,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         let visibleFrame = screen.visibleFrame
         let panelFrame = panel.frame
         let x = visibleFrame.midX - panelFrame.width / 2
-        let y = visibleFrame.maxY - panelFrame.height - 120
+        let y = visibleFrame.maxY - panelFrame.height - Layout.topOffset
 
         panel.setFrameOrigin(NSPoint(x: x, y: y))
     }
