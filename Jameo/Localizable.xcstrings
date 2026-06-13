@@ -17,6 +17,22 @@
         }
       }
     },
+    "Could not load local Ollama models." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not load local Ollama models."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron cargar los modelos locales de Ollama."
+          }
+        }
+      }
+    },
     "Enable reasoning" : {
       "localizations" : {
         "en" : {
@@ -45,6 +61,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Modelo"
+          }
+        }
+      }
+    },
+    "No downloaded Ollama models found." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No downloaded Ollama models found."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron modelos descargados en Ollama."
+          }
+        }
+      }
+    },
+    "Only models downloaded in Ollama are shown here. Pull more models in Ollama, then refresh this list." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only models downloaded in Ollama are shown here. Pull more models in Ollama, then refresh this list."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aquí solo aparecen los modelos descargados en Ollama. Descarga más modelos en Ollama y actualiza esta lista."
           }
         }
       }
@@ -125,6 +173,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Razonamiento"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualizar"
           }
         }
       }

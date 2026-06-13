@@ -52,6 +52,14 @@ class OllamaService {
         }
     }
 
+    func localModelNames() async throws -> [String] {
+        let response = try await client.listModels()
+
+        return response.models
+            .map(\.name)
+            .sorted { $0.localizedStandardCompare($1) == .orderedAscending }
+    }
+
     private var selectedModel: Model.ID {
         Model.ID(rawValue: JameoSettings.model) ?? Model.ID(rawValue: JameoSettings.defaultModel)!
     }

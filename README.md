@@ -13,7 +13,7 @@ The app is designed to work like a lightweight Spotlight-style assistant: it liv
 - Concise assistant prompt that replies in the user's language.
 - Localized English and Spanish UI that follows the system language.
 - Settings window for:
-  - Ollama model name.
+  - Local downloaded Ollama model selection.
   - Reasoning mode.
   - Preserving prompt and answer between panel opens.
 - Menu bar actions for opening Jameo, opening settings, and quitting the app.
@@ -42,7 +42,6 @@ The app is designed to work like a lightweight Spotlight-style assistant: it liv
 ## Future Features
 
 - Configurable global keyboard shortcut.
-- Better model selection.
 - Optional screen or app context awareness.
 - More privacy controls around captured context.
 - Improved answer formatting.
