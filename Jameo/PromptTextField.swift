@@ -31,6 +31,7 @@ struct PromptTextField: NSViewRepresentable {
 
     func updateNSView(_ textField: NSTextField, context: Context) {
         context.coordinator.parent = self
+        textField.placeholderString = placeholder
 
         if textField.stringValue != text {
             textField.stringValue = text

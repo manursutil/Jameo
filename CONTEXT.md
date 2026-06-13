@@ -10,8 +10,10 @@ The intended user experience is closer to macOS Spotlight than a conventional wi
 
 - Native SwiftUI macOS app.
 - Current UI is a simple prompt field plus streamed answer.
+- UI text is localized with an English source language and Spanish translations, following the user's system language.
 - Current Ollama integration is one-shot prompt generation through `OllamaService`.
-- The model and reasoning behavior are currently hardcoded.
+- Model name, reasoning behavior, and panel state preservation are configurable in settings.
+- The assistant prompt asks the model to respond in the same language as the user's request unless the user asks for another language.
 
 ## First Milestone
 
@@ -32,6 +34,7 @@ Decisions:
 - Pressing `Esc` should close the panel.
 - When opened, the prompt should be focused so the user can type immediately.
 - The first version should keep the current one-shot prompt plus streamed answer flow.
+- The assistant should answer in the user's language by default.
 - Do not turn the panel into a multi-message chat yet.
 
 ## Future Settings
@@ -43,6 +46,7 @@ Likely settings:
 - Model selection.
 - Reasoning on/off.
 - Preserve prompt and answer between panel opens.
+- More UI languages beyond English and Spanish.
 - Possibly whether the panel hides on focus loss.
 - Eventually, configurable global shortcut.
 

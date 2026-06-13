@@ -59,17 +59,17 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Modelo") {
-                TextField("Modelo", text: $model)
+            Section("Model") {
+                TextField("Model", text: $model)
                     .textFieldStyle(.roundedBorder)
             }
 
-            Section("Razonamiento") {
-                Toggle("Activar razonamiento", isOn: $reasoningEnabled)
+            Section("Reasoning") {
+                Toggle("Enable reasoning", isOn: $reasoningEnabled)
             }
 
             Section("Panel") {
-                Toggle("Conservar prompt y respuesta al abrir", isOn: $preservePanelState)
+                Toggle("Preserve prompt and answer when opening", isOn: $preservePanelState)
             }
         }
         .formStyle(.grouped)

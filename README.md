@@ -10,7 +10,8 @@ The app is designed to work like a lightweight Spotlight-style assistant: it liv
 - Spotlight-style floating prompt panel.
 - Global shortcut: `Cmd + Shift + Space`.
 - Ask one-shot questions and receive streamed answers.
-- Spanish-first assistant prompt for concise responses.
+- Concise assistant prompt that replies in the user's language.
+- Localized English and Spanish UI that follows the system language.
 - Settings window for:
   - Ollama model name.
   - Reasoning mode.
@@ -45,4 +46,5 @@ The app is designed to work like a lightweight Spotlight-style assistant: it liv
 - Optional screen or app context awareness.
 - More privacy controls around captured context.
 - Improved answer formatting.
+- More UI languages.
 - Packaging and distribution outside Xcode.
