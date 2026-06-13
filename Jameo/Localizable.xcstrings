@@ -17,6 +17,54 @@
         }
       }
     },
+    "Ask about your screen..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask about your screen..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pregunta sobre tu pantalla..."
+          }
+        }
+      }
+    },
+    "Checking screen context availability..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking screen context availability..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprobando la disponibilidad del contexto de pantalla..."
+          }
+        }
+      }
+    },
+    "Could not capture the current screen." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not capture the current screen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo capturar la pantalla actual."
+          }
+        }
+      }
+    },
     "Could not load local Ollama models." : {
       "localizations" : {
         "en" : {
@@ -33,6 +81,22 @@
         }
       }
     },
+    "Could not prepare the screen image." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not prepare the screen image."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo preparar la imagen de la pantalla."
+          }
+        }
+      }
+    },
     "Enable reasoning" : {
       "localizations" : {
         "en" : {
@@ -45,6 +109,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activar razonamiento"
+          }
+        }
+      }
+    },
+    "Help me understand what is on my screen." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help me understand what is on my screen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayúdame a entender lo que hay en mi pantalla."
+          }
+        }
+      }
+    },
+    "Include current screen with the next question" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include current screen with the next question"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incluir la pantalla actual con la próxima pregunta"
           }
         }
       }
@@ -177,6 +273,38 @@
         }
       }
     },
+    "Screen included" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen included"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pantalla incluida"
+          }
+        }
+      }
+    },
+    "Screen Recording permission is required to include screen context." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen Recording permission is required to include screen context."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se necesita permiso de grabación de pantalla para incluir contexto de pantalla."
+          }
+        }
+      }
+    },
     "Refresh" : {
       "localizations" : {
         "en" : {
@@ -189,6 +317,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Actualizar"
+          }
+        }
+      }
+    },
+    "The selected model does not support screen context." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The selected model does not support screen context."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El modelo seleccionado no admite contexto de pantalla."
           }
         }
       }

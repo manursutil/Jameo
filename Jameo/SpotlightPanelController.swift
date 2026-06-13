@@ -13,6 +13,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
     }
 
     private let viewModel: JameoViewModel
+    private let screenContextCaptureService = ScreenContextCaptureService()
     private var panel: SpotlightPanel?
     private var escapeMonitor: Any?
     private var cancellables: Set<AnyCancellable> = []
@@ -20,6 +21,9 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
     init(viewModel: JameoViewModel) {
         self.viewModel = viewModel
         super.init()
+        self.viewModel.screenContextImageProvider = { [weak self] in
+            try await self?.captureScreenContextImage()
+        }
         observeContentChanges()
     }
 
@@ -39,6 +43,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
             viewModel.reset()
         }
 
+        viewModel.refreshScreenContextAvailability()
         position(panel)
         installEscapeMonitor()
         NSApp.activate(ignoringOtherApps: true)
@@ -137,6 +142,30 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         let y = visibleFrame.maxY - panelFrame.height - Layout.topOffset
 
         panel.setFrameOrigin(NSPoint(x: x, y: y))
+    }
+
+    private func captureScreenContextImage() async throws -> Data? {
+        guard let panel else { return nil }
+
+        let targetScreen = panel.screen ?? NSScreen.main
+        panel.orderOut(nil)
+
+        do {
+            try await Task.sleep(nanoseconds: 80_000_000)
+            let imageData = try await screenContextCaptureService.captureDisplay(containing: targetScreen)
+            restorePanel(panel)
+            return imageData
+        } catch {
+            restorePanel(panel)
+            throw error
+        }
+    }
+
+    private func restorePanel(_ panel: NSPanel) {
+        position(panel)
+        NSApp.activate(ignoringOtherApps: true)
+        panel.makeKeyAndOrderFront(nil)
+        viewModel.requestFocus()
     }
 }
 

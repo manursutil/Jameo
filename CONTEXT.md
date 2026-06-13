@@ -1,5 +1,43 @@
 # Jameo Context
 
+## Language
+
+**Current-screen context**:
+Visual information from the display containing the Jameo panel when the user submits a question with screen context enabled. It means screenshot-like visual context, not app-specific text extraction or automatic screen watching.
+_Avoid_: automatic screen watching, OCR-only context, semantic app context, window-only context
+
+**Screen-context toggle**:
+A compact control in the prompt bar that arms current-screen context for the next submitted question. Turning it on does not capture immediately; the screen is captured at submit time, then the toggle resets to off after a successful submission and stays on for retryable failures.
+_Avoid_: capture-now button, persistent screen recording
+
+**Screen-included confirmation**:
+A lightweight text/icon confirmation that a submitted question included current-screen context. It is not a thumbnail, blocking screenshot preview, or confirmation dialog.
+_Avoid_: screenshot thumbnail, blocking preview, confirmation dialog
+
+**Screen image**:
+The captured image of the active display sent with a screen-context question, downscaled for model input rather than sent at full display resolution. The first version should use a fixed maximum long edge around 1600 px rather than a user-facing setting. Jameo hides its own panel before capture so the screen image represents the user's workspace rather than Jameo itself, then shows the panel again immediately while the answer streams. The image is kept only in memory for the request and is not written to disk, logs, or history.
+_Avoid_: OCR transcript, generated screen summary, persisted screenshot
+
+**Preserved screen-context result**:
+A screen-context answer whose prompt and response text may remain visible between panel opens when preservation is enabled. The captured screen image itself is never preserved, and preserved text is display state rather than context for a follow-up conversation.
+_Avoid_: screenshot history, preserved screen image, follow-up context
+
+**Screen-only question**:
+A submitted question with screen context enabled and no user-entered prompt text. It asks Jameo to respond based on the captured screen image alone, using a neutral default intent such as "Help me understand what is on my screen."
+_Avoid_: requiring prompt text for screen-context submissions
+
+**Vision-capable model**:
+An Ollama model that can accept a screen image as input. Screen context is only available when the selected model is vision-capable.
+_Avoid_: OCR fallback for text-only models, silently dropping screen images
+
+**Screen-context availability**:
+Whether screen context can be used with the currently selected model. Jameo should determine this from model capability metadata for UI state and re-check it before sending a screen-context question; when unavailable, the screen-context toggle remains visible but disabled.
+_Avoid_: hidden capability, UI-only validation, submit-only validation
+
+**Screen-context submission**:
+A one-shot Jameo submission that includes current-screen context. It cannot be started while another answer is streaming.
+_Avoid_: overlapping screen-context requests, multi-message screen chat
+
 ## Product Direction
 
 Jameo is a native macOS utility for asking a local Ollama model quick one-shot questions from anywhere in the system.
