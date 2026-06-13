@@ -18,14 +18,24 @@ struct ContentView: View {
                 TextField("Ask Luma...", text: $prompt)
                     .textFieldStyle(.plain)
                     .font(.title3)
+                    .submitLabel(.send)
                     .onSubmit {
                         askLuma()
                     }
 
-                Button("Ask") {
+                Button {
                     askLuma()
+                } label: {
+                    Image(systemName: "arrow.up")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 34, height: 34)
                 }
-                .disabled(isLoading)
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.circle)
+                .tint(.black)
+                .keyboardShortcut(.defaultAction)
+                .disabled(isLoading || prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
 
             if isLoading {
@@ -44,7 +54,7 @@ struct ContentView: View {
     
     private func askLuma() {
         let submittedPrompt = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !submittedPrompt.isEmpty else { return }
+        guard !submittedPrompt.isEmpty, !isLoading else { return }
 
         Task {
             isLoading = true
