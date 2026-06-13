@@ -22,7 +22,7 @@ class OllamaService {
     
     private init() {}
     
-    func generateStream(prompt: String) -> AsyncThrowingStream<String, Error> {
+    func generateStream(prompt: String, images: [Data]? = nil) -> AsyncThrowingStream<String, Error> {
         return AsyncThrowingStream { continuation in
             Task {
                 do {
@@ -30,7 +30,7 @@ class OllamaService {
                         model: selectedModel,
                         messages: [
                             .system(systemPrompt),
-                            .user(prompt),
+                            .user(prompt, images: images),
                         ],
                         options: [
                             "temperature": 0.7,
@@ -50,6 +50,12 @@ class OllamaService {
                 }
             }
         }
+    }
+
+    func selectedModelSupportsVision() async throws -> Bool {
+        let response = try await client.showModel(selectedModel)
+
+        return response.capabilities.contains(.vision)
     }
 
     func localModelNames() async throws -> [String] {
