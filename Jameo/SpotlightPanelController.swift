@@ -6,10 +6,10 @@ import SwiftUI
 final class SpotlightPanelController: NSObject, NSWindowDelegate {
     private enum Layout {
         static let width: CGFloat = 620
-        static let collapsedHeight: CGFloat = 82
+        static let collapsedHeight: CGFloat = 64
         static let expandedHeight: CGFloat = 360
         static let topOffset: CGFloat = 96
-        static let cornerRadius: CGFloat = 20
+        static let cornerRadius: CGFloat = 32
     }
 
     private let viewModel: JameoViewModel
@@ -124,6 +124,8 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
 
         let targetHeight = viewModel.answer.isEmpty && !viewModel.isLoading ? Layout.collapsedHeight : Layout.expandedHeight
         var frame = panel.frame
+        guard abs(frame.height - targetHeight) > 0.5 else { return }
+
         let heightDelta = targetHeight - frame.height
         frame.size.height = targetHeight
         frame.origin.y -= heightDelta
