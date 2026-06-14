@@ -69,9 +69,14 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
     }
 
     private func makePanel() -> SpotlightPanel {
+        let panelShape = RoundedRectangle(cornerRadius: Layout.cornerRadius, style: .continuous)
         let contentView = ContentView(viewModel: viewModel)
-            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: Layout.cornerRadius, style: .continuous))
-            .clipShape(RoundedRectangle(cornerRadius: Layout.cornerRadius, style: .continuous))
+            .glassEffect(.regular, in: panelShape)
+            .overlay {
+                panelShape
+                    .strokeBorder(Color.white.opacity(0.16), lineWidth: 0.8)
+            }
+            .clipShape(panelShape)
 
         let hostingView = NSHostingView(rootView: contentView)
         hostingView.wantsLayer = true
@@ -91,7 +96,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         panel.level = .floating
         panel.backgroundColor = .clear
         panel.isOpaque = false
-        panel.hasShadow = false
+        panel.hasShadow = true
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .transient]
 
         return panel
@@ -149,6 +154,7 @@ final class SpotlightPanelController: NSObject, NSWindowDelegate {
         frame.size.height = targetHeight
         frame.origin.y -= heightDelta
         panel.setFrame(frame, display: true, animate: true)
+        panel.invalidateShadow()
     }
 
     private func maximumPanelHeight(for panel: NSPanel) -> CGFloat {
